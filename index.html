@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Gaspol - Aplikasi Layanan</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            -webkit-tap-highlight-color: transparent;
+        }
+        
+        body {
+            background-color: #f5f5f5;
+            touch-action: manipulation;
+        }
+        
+        .app-container {
+            max-width: 100%;
+            width: 100%;
+            margin: 0 auto;
+            height: 100vh;
+            height: -webkit-fill-available;
+            background-color: white;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .header {
+            background-color: #6dcfee;
+            color: white;
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            position: relative;
+            z-index: 10;
+        }
+        
+        .logo {
+            height: 60px;
+        }
+        
+        .logo img {
+            height: 100%;
+            width: auto;
+        }
+        
+        .user-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: white;
+            color: #6dcfee;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-weight: bold;
+            font-size: 18px;
+        }
+        
+        .main-content {
+            padding: 15px;
+            flex: 1;
+            overflow-y: auto;
+            -webkit-overflow-scrolling: touch;
+        }
+        
+        .gif-container {
+            width: 100%;
+            height: 160px;
+            background-color: #f0f0f0;
+            border-radius: 15px;
+            overflow: hidden;
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .gif-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .services {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+        
+        .service-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            cursor: pointer;
+            text-decoration: none;
+        }
+        
+        .service-icon {
+            width: 60px;
+            height: 60px;
+            background-color: #6dcfee;
+            border-radius: 18px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 10px;
+            color: white;
+            font-size: 28px;
+            transition: transform 0.2s;
+            box-shadow: 0 3px 6px rgba(0,0,0,0.1);
+        }
+        
+        .service-item:active .service-icon {
+            transform: scale(0.95);
+        }
+        
+        .service-name {
+            font-size: 14px;
+            text-align: center;
+            color: #555;
+            font-weight: 500;
+        }
+        
+        .promo-slider {
+            width: 100%;
+            border-radius: 15px;
+            overflow: hidden;
+            margin-bottom: 20px;
+            position: relative;
+            height: 150px;
+        }
+        
+        .promo-slides {
+            display: flex;
+            height: 100%;
+            transition: transform 0.5s ease;
+        }
+        
+        .promo-slide {
+            min-width: 100%;
+            height: 100%;
+        }
+        
+        .promo-slide img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .slide-indicators {
+            position: absolute;
+            bottom: 10px;
+            left: 0;
+            right: 0;
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+        }
+        
+        .indicator {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background-color: rgba(255,255,255,0.5);
+            transition: all 0.3s;
+        }
+        
+        .indicator.active {
+            background-color: white;
+            width: 20px;
+            border-radius: 4px;
+        }
+        
+        @media (max-width: 350px) {
+            .service-icon {
+                width: 50px;
+                height: 50px;
+                font-size: 24px;
+            }
+            
+            .service-name {
+                font-size: 12px;
+            }
+            
+            .logo {
+                height: 25px;
+            }
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <div class="app-container">
+        <div class="header">
+            <div class="logo">
+                <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEh3RgfjNtQYU23FjxwzMAf30eWoVw_dL-oB1gv0gousyUUHYgGsAY_H9y5PIAyCRgpwvLytfu-KU2BtBWA8CEnJ3PaTjNY_j8QVFGIkO2cl1ax4gIYmh8MUNPJFCxGpB2d4OZvG5GRCOOhxcWKvALTPevhohLIL8hWkkgwbldcjBF83XzGfTsNIGDMNuA/s1600/1000135247.png" alt="Gaspol">
+            </div>
+            <div class="user-icon">U</div>
+        </div>
+        
+        <div class="main-content">
+            <div class="gif-container">
+                <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiZ-mdClwFK2k7eEOI2J4fdhQw3H-TKb2CPM9_L_YrFo0LdriwIwhC9pn8Z1tb4xrbMZcMPYn9Gnc14kZfLi8Uwl0wk2RvUyoSVixAlTMQZsRRVIGT0eAhMeDTscbWPK3WTEzxc46PBKyaWzcp5tVdFKsrnuuxUzfuf46RByIUnt-kv8ihsv7Gpy5sQDQ/s400/1000135252.gif" alt="Gaspol Services">
+            </div>
+            
+            <div class="services">
+                <a href="#" class="service-item">
+                    <div class="service-icon"><i class="fas fa-car-alt"></i></div>
+                    <div class="service-name">Transportasi</div>
+                </a>
+                <a href="#" class="service-item">
+                    <div class="service-icon"><i class="fas fa-bed"></i></div>
+                    <div class="service-name">Akomodasi</div>
+                </a>
+                <a href="#" class="service-item">
+                    <div class="service-icon"><i class="fas fa-hamburger"></i></div>
+                    <div class="service-name">Kuliner</div>
+                </a>
+                <a href="#" class="service-item">
+                    <div class="service-icon"><i class="fas fa-shopping-bag"></i></div>
+                    <div class="service-name">Belanja</div>
+                </a>
+                <a href="#" class="service-item">
+                    <div class="service-icon"><i class="fas fa-tools"></i></div>
+                    <div class="service-name">Layanan Jasa</div>
+                </a>
+                <a href="#" class="service-item">
+                    <div class="service-icon"><i class="fas fa-headset"></i></div>
+                    <div class="service-name">Bantuan CS</div>
+                </a>
+                <a href="#" class="service-item">
+                    <div class="service-icon"><i class="fas fa-info-circle"></i></div>
+                    <div class="service-name">Tentang Kami</div>
+                </a>
+                <a href="#" class="service-item">
+                    <div class="service-icon"><i class="fas fa-ellipsis-h"></i></div>
+                    <div class="service-name">Lainnya</div>
+                </a>
+            </div>
+            
+            <div class="promo-slider">
+                <div class="promo-slides">
+                    <div class="promo-slide">
+                        <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhvnUWgQs_yOQNN3v6WElk3iw4ZvkYVadABwjzCywaSCU_e2kLJB6w6aVgVELJbmJGd2Mjz8A-Z7TLXb3QrBjCkJeWri5OpzpaXRDoSS2z2nm0Z0IsekDq1JW5jZGR2i9Rnl6a3rRJkBlmH4juH_AuK1HI_2QCcuw2tUGZVwRromBPlNUEOfzvF8IEUIA/s1920/1000135248.png" alt="Promo 1">
+                    </div>
+                    <div class="promo-slide">
+                        <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhvnUWgQs_yOQNN3v6WElk3iw4ZvkYVadABwjzCywaSCU_e2kLJB6w6aVgVELJbmJGd2Mjz8A-Z7TLXb3QrBjCkJeWri5OpzpaXRDoSS2z2nm0Z0IsekDq1JW5jZGR2i9Rnl6a3rRJkBlmH4juH_AuK1HI_2QCcuw2tUGZVwRromBPlNUEOfzvF8IEUIA/s1920/1000135248.png" alt="Promo 2">
+                    </div>
+                    <div class="promo-slide">
+                        <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhvnUWgQs_yOQNN3v6WElk3iw4ZvkYVadABwjzCywaSCU_e2kLJB6w6aVgVELJbmJGd2Mjz8A-Z7TLXb3QrBjCkJeWri5OpzpaXRDoSS2z2nm0Z0IsekDq1JW5jZGR2i9Rnl6a3rRJkBlmH4juH_AuK1HI_2QCcuw2tUGZVwRromBPlNUEOfzvF8IEUIA/s1920/1000135248.png" alt="Promo 3">
+                    </div>
+                </div>
+                <div class="slide-indicators">
+                    <div class="indicator active"></div>
+                    <div class="indicator"></div>
+                    <div class="indicator"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Slider otomatis
+        let currentSlide = 0;
+        const slides = document.querySelector('.promo-slides');
+        const indicators = document.querySelectorAll('.indicator');
+        const totalSlides = document.querySelectorAll('.promo-slide').length;
+        
+        function nextSlide() {
+            currentSlide = (currentSlide + 1) % totalSlides;
+            updateSlider();
+        }
+        
+        function updateSlider() {
+            slides.style.transform = `translateX(-${currentSlide * 100}%)`;
+            
+            indicators.forEach((indicator, index) => {
+                if (index === currentSlide) {
+                    indicator.classList.add('active');
+                } else {
+                    indicator.classList.remove('active');
+                }
+            });
+        }
+        
+        // Ganti slide setiap 3 detik
+        setInterval(nextSlide, 3000);
+        
+        // Optimasi untuk mobile
+        document.addEventListener('touchstart', function(e) {
+            if (e.touches.length > 1) {
+                e.preventDefault();
+            }
+        }, { passive: false });
+    </script>
+</body>
+</html>
