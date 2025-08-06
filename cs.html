@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Chat Admin Gaspol</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    :root {
+      --primary: #6dcfee;
+      --primary-light: #e1f5fa;
+      --primary-dark: #4fb8e0;
+      --secondary: #f8fbfd;
+      --text: #2d3748;
+      --text-light: #718096;
+      --border: #e2e8f0;
+      --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      --radius: 12px;
+      --transition: all 0.3s ease;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    body {
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+      background-color: var(--secondary);
+      color: var(--text);
+      line-height: 1.5;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+      touch-action: manipulation;
+    }
+
+    header {
+      background-color: var(--primary);
+      color: white;
+      padding: 16px;
+      text-align: center;
+      font-size: 1.1rem;
+      font-weight: 600;
+      box-shadow: var(--shadow);
+      position: relative;
+    }
+
+    .back-btn {
+      position: absolute;
+      left: 16px;
+      background: none;
+      border: none;
+      color: white;
+      font-size: 1.2rem;
+      cursor: pointer;
+    }
+
+    main {
+      flex: 1;
+      padding: 16px;
+      max-width: 500px;
+      width: 100%;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .dropdown {
+      position: relative;
+      width: 100%;
+    }
+
+    .dropdown-toggle {
+      width: 100%;
+      padding: 14px 16px;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      background-color: white;
+      text-align: left;
+      font-size: 0.95rem;
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .dropdown-toggle i {
+      transition: var(--transition);
+    }
+
+    .dropdown-toggle.active i {
+      transform: rotate(180deg);
+    }
+
+    .dropdown-menu {
+      position: absolute;
+      top: 100%;
+      left: 0;
+      width: 100%;
+      max-height: 0;
+      overflow: hidden;
+      background: white;
+      border-radius: 0 0 var(--radius) var(--radius);
+      box-shadow: var(--shadow);
+      z-index: 10;
+      transition: max-height 0.3s ease, padding 0.3s ease;
+    }
+
+    .dropdown-menu.show {
+      max-height: 300px;
+      overflow-y: auto;
+      padding: 8px 0;
+      border: 1px solid var(--border);
+      border-top: none;
+    }
+
+    .dropdown-item {
+      padding: 12px 16px;
+      cursor: pointer;
+      transition: var(--transition);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .dropdown-item:hover {
+      background-color: var(--primary-light);
+    }
+
+    .dropdown-item i {
+      width: 20px;
+      text-align: center;
+      color: var(--primary);
+    }
+
+    .form-group {
+      margin-top: 16px;
+    }
+
+    textarea {
+      width: 100%;
+      padding: 14px 16px;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      font-size: 0.95rem;
+      background-color: white;
+      resize: none;
+      min-height: 120px;
+      outline: none;
+      transition: var(--transition);
+    }
+
+    textarea:focus {
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px rgba(109, 207, 238, 0.2);
+    }
+
+    button {
+      background-color: var(--primary);
+      color: white;
+      border: none;
+      padding: 16px;
+      font-size: 1rem;
+      font-weight: 600;
+      border-radius: var(--radius);
+      cursor: pointer;
+      transition: var(--transition);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      width: 100%;
+      margin-top: 8px;
+    }
+
+    button:hover {
+      background-color: var(--primary-dark);
+    }
+
+    button:disabled {
+      background-color: #ccc;
+      cursor: not-allowed;
+    }
+
+    .note {
+      font-size: 0.8rem;
+      color: var(--text-light);
+      text-align: center;
+      margin-top: 8px;
+    }
+
+    .toast {
+      position: fixed;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      background-color: #ff4444;
+      color: white;
+      padding: 12px 20px;
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .toast.show {
+      opacity: 1;
+    }
+
+    .selected-value {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+   <strong>Bantuan CS</strong>
+  </header>
+
+  <main>
+    <!-- Kecamatan Dropdown -->
+    <div class="dropdown" id="kecamatanDropdown">
+      <button class="dropdown-toggle" onclick="toggleDropdown('kecamatanDropdown')">
+        <span class="selected-value">
+          <i class="fas fa-map-marker-alt"></i>
+          <span id="kecamatanText"><strong>Pilih Kecamatan Anda</strong></span>
+        </span>
+        
+      </button>
+      <div class="dropdown-menu">
+        <div class="dropdown-item" onclick="selectOption('kecamatan', 'Cimahi', 'fas fa-city')">
+          
+          Cimahi
+        </div>
+        <div class="dropdown-item" onclick="selectOption('kecamatan', 'Cileunyi', 'fas fa-tree')">
+          
+          Cileunyi
+        </div>
+        <div class="dropdown-item" onclick="selectOption('kecamatan', 'Lembang', 'fas fa-mountain')">
+          
+          Lembang
+        </div>
+        <div class="dropdown-item" onclick="selectOption('kecamatan', 'Sumedang', 'fas fa-store')">Sumedang
+        </div>
+        <div class="dropdown-item" onclick="selectOption('kecamatan', 'Cianjur', 'fas fa-umbrella-beach')">
+          
+          Cianjur
+        </div>
+      </div>
+      <input type="hidden" id="kecamatan" value="">
+    </div>
+
+    <!-- Kategori Dropdown -->
+    <div class="dropdown" id="kategoriDropdown">
+      <button class="dropdown-toggle" onclick="toggleDropdown('kategoriDropdown')">
+        <span class="selected-value">
+          <i class="fas fa-tag"></i>
+          <span id="kategoriText"><strong>Pilih Perihal Pesan</strong></span>
+        </span>
+        <i class="fas fa-chevron-down"></i>
+      </button>
+      <div class="dropdown-menu">
+        <div class="dropdown-item" onclick="selectOption('kategori', 'Komplain', 'fas fa-exclamation-circle')">
+          <i class="fas fa-exclamation-circle"></i>
+          Komplain
+        </div>
+        <div class="dropdown-item" onclick="selectOption('kategori', 'Pendaftaran Mitra', 'fas fa-user-plus')">
+          <i class="fas fa-user-plus"></i>
+          Pendaftaran Mitra
+        </div>
+        <div class="dropdown-item" onclick="selectOption('kategori', 'Kerjasama', 'fas fa-handshake')">
+          <i class="fas fa-handshake"></i>
+          Kerjasama
+        </div>
+        <div class="dropdown-item" onclick="selectOption('kategori', 'Masukan / Ide', 'fas fa-lightbulb')">
+          <i class="fas fa-lightbulb"></i>
+          Masukan / Ide
+        </div>
+        <div class="dropdown-item" onclick="selectOption('kategori', 'Lainnya', 'fas fa-ellipsis-h')">
+          <i class="fas fa-ellipsis-h"></i>
+          Lainnya
+        </div>
+      </div>
+      <input type="hidden" id="kategori" value="">
+    </div>
+
+    <!-- Pesan -->
+    <div class="form-group">
+      <textarea id="pesan" placeholder="Tuliskan pesan Anda secara detail..."></textarea>
+    </div>
+
+    <button id="submitBtn" onclick="kirimChat()">
+      <i class="fas fa-headset"></i><strong>CUSTOMER SERVICE</strong></button>
+
+    <p class="note">Anda akan diarahkan ke CS sesuai wilayah anda.</p>
+  </main>
+
+  <div id="toast" class="toast">
+    <i class="fas fa-exclamation-circle"></i>
+    <span id="toastMessage"></span>
+  </div>
+
+  <script>
+    const adminWa = {
+      Cimahi: "6281234567890",
+      Cileunyi: "6282234567890",
+      Lembang: "6283234567890",
+      Sumedang: "6284234567890",
+      Cianjur: "6285234567890"
+    };
+
+    // Toggle dropdown
+    function toggleDropdown(id) {
+      const dropdown = document.getElementById(id);
+      const menu = dropdown.querySelector('.dropdown-menu');
+      const toggle = dropdown.querySelector('.dropdown-toggle');
+      
+      // Close all other dropdowns first
+      document.querySelectorAll('.dropdown-menu').forEach(d => {
+        if (d !== menu) {
+          d.classList.remove('show');
+          d.previousElementSibling.classList.remove('active');
+        }
+      });
+      
+      // Toggle current dropdown
+      menu.classList.toggle('show');
+      toggle.classList.toggle('active');
+    }
+
+    // Select option from dropdown
+    function selectOption(type, value, iconClass) {
+      document.getElementById(`${type}Text`).textContent = value;
+      document.getElementById(type).value = value;
+      
+      // Update the displayed icon
+      const toggle = document.getElementById(`${type}Dropdown`).querySelector('.dropdown-toggle');
+      const icon = toggle.querySelector('.selected-value i');
+      icon.className = iconClass;
+      
+      // Close dropdown
+      toggle.classList.remove('active');
+      toggle.nextElementSibling.classList.remove('show');
+    }
+
+    // Close dropdowns when clicking outside
+    document.addEventListener('click', function(e) {
+      if (!e.target.closest('.dropdown')) {
+        document.querySelectorAll('.dropdown-menu').forEach(menu => {
+          menu.classList.remove('show');
+          menu.previousElementSibling.classList.remove('active');
+        });
+      }
+    });
+
+    function showToast(message) {
+      const toast = document.getElementById("toast");
+      const toastMessage = document.getElementById("toastMessage");
+      
+      toastMessage.textContent = message;
+      toast.classList.add("show");
+      
+      setTimeout(() => {
+        toast.classList.remove("show");
+      }, 3000);
+    }
+
+    function kirimChat() {
+      const kecamatan = document.getElementById("kecamatan").value;
+      const kategori = document.getElementById("kategori").value;
+      const pesan = document.getElementById("pesan").value.trim();
+      const submitBtn = document.getElementById("submitBtn");
+
+      // Validate inputs
+      if (!kecamatan) {
+        showToast("Silakan pilih CS kecamatan terlebih dahulu");
+        return;
+      }
+
+      if (!kategori) {
+        showToast("Silakan pilih perihal pesan");
+        return;
+      }
+
+      if (!pesan) {
+        showToast("Detail pesan tidak boleh kosong");
+        document.getElementById("pesan").focus();
+        return;
+      }
+
+      // Add loading state
+      submitBtn.disabled = true;
+      submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Mengarahkan...';
+
+      // Prepare WhatsApp link
+      const nomor = adminWa[kecamatan];
+      const teks = `Halo Admin Gaspol ${kecamatan},\n\n*Kategori:* ${kategori}\n*Pesan:* ${pesan}\n\nTerima kasih.`;
+      const link = `https://wa.me/${nomor}?text=${encodeURIComponent(teks)}`;
+
+      // Open WhatsApp after slight delay for better UX
+      setTimeout(() => {
+        window.open(link, "_blank");
+        submitBtn.disabled = false;
+        submitBtn.innerHTML = '<i class="fab fa-whatsapp"></i> Kirim ke CS';
+      }, 800);
+    }
+
+    // Add enter key support for textarea (with shift+enter for new line)
+    document.getElementById("pesan").addEventListener("keydown", function(e) {
+      if (e.key === "Enter" && !e.shiftKey) {
+        e.preventDefault();
+        kirimChat();
+      }
+    });
+  </script>
+</body>
+</html>
