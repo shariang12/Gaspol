@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Gaspol - Pengembangan</title>
+  <style>
+    :root {
+      --primary: #6dcfee;
+      --text: #333;
+      --white: #fff;
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+      background-color: var(--primary);
+      font-family: 'Segoe UI', sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      text-align: center;
+    }
+
+    .container {
+      background: var(--white);
+      padding: 2rem;
+      border-radius: 16px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      max-width: 90%;
+      width: 100%;
+    }
+
+    h1 {
+      color: var(--primary);
+      font-size: 1.5rem;
+      margin-bottom: 1rem;
+    }
+
+    p {
+      color: var(--text);
+      font-size: 1rem;
+    }
+
+    @media (min-width: 500px) {
+      .container {
+        max-width: 400px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <h1 id="pesan">Loading...</h1>
+    <p>Silakan hubungi pengembang.</p>
+  </div>
+
+  <script>
+    // Tampilkan pesan saat halaman dimuat
+    document.getElementById('pesan').textContent = "Loading...."
+  </script>
+
+</body>
+</html>
