@@ -57,6 +57,7 @@
       box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
       padding: 32px 24px;
       text-align: center;
+      margin-bottom: 20px;
     }
 
     .auth-title {
@@ -138,6 +139,54 @@
       font-weight: 500;
     }
 
+    .footer {
+      background-color: white;
+      padding: 20px;
+      text-align: center;
+      font-size: 0.8rem;
+      color: var(--text-light);
+      border-top: 1px solid var(--border);
+      width: 100%;
+    }
+
+    .footer-links {
+      display: flex;
+      justify-content: center;
+      gap: 16px;
+      margin-bottom: 12px;
+    }
+
+    .footer-link {
+      color: var(--text-light);
+      text-decoration: none;
+      transition: var(--transition);
+    }
+
+    .footer-link:hover {
+      color: var(--primary-dark);
+    }
+
+    .footer-copyright {
+      margin-top: 8px;
+    }
+
+    .social-icons {
+      display: flex;
+      justify-content: center;
+      gap: 16px;
+      margin-top: 16px;
+    }
+
+    .social-icon {
+      color: var(--text-light);
+      font-size: 1.2rem;
+      transition: var(--transition);
+    }
+
+    .social-icon:hover {
+      color: var(--primary-dark);
+    }
+
     @media (max-width: 400px) {
       .container {
         padding: 16px;
@@ -145,6 +194,11 @@
       
       .auth-card {
         padding: 24px 16px;
+      }
+      
+      .footer-links {
+        flex-wrap: wrap;
+        gap: 12px;
       }
     }
   </style>
@@ -169,7 +223,6 @@
         </div>
       </div>
       
-      <!-- Special login button that redirects to your GitHub Pages -->
       <a href="https://shariang12.github.io/Gaspol/login.html" class="auth-button">Masuk</a>
       
       <div style="text-align: right; margin-top: 12px;">
@@ -182,6 +235,26 @@
       </div>
     </div>
   </div>
+
+  <footer class="footer">
+    <div class="footer-links">
+      <a href="#" class="footer-link">Tentang Kami</a>
+      <a href="#" class="footer-link">Kebijakan Privasi</a>
+      <a href="#" class="footer-link">Syarat & Ketentuan</a>
+      <a href="#" class="footer-link">Bantuan</a>
+    </div>
+    
+    <div class="social-icons">
+      <a href="#" class="social-icon"><i class="fab fa-facebook-f"></i></a>
+      <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
+      <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
+      <a href="#" class="social-icon"><i class="fab fa-youtube"></i></a>
+    </div>
+    
+    <div class="footer-copyright">
+      &copy; 2023 Aplikasi Gaspol. Seluruh hak cipta dilindungi.
+    </div>
+  </footer>
 
   <script>
     // Toggle password visibility
