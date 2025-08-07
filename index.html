@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Login - Gaspol</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    :root {
+      --primary: #6dcfee;
+      --primary-dark: #4fb8e0;
+      --secondary: #f8fbfd;
+      --text: #2d3748;
+      --text-light: #718096;
+      --border: #e2e8f0;
+      --radius: 12px;
+      --transition: all 0.3s ease;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    body {
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+      background-color: var(--secondary);
+      color: var(--text);
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+
+    .container {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+      max-width: 500px;
+      margin: 0 auto;
+      width: 100%;
+    }
+
+    .logo {
+      width: 120px;
+      margin-bottom: 40px;
+    }
+
+    .auth-card {
+      background: white;
+      width: 100%;
+      border-radius: var(--radius);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+      padding: 32px 24px;
+      text-align: center;
+    }
+
+    .auth-title {
+      font-size: 1.5rem;
+      margin-bottom: 24px;
+      color: var(--primary-dark);
+      font-weight: 600;
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+      text-align: left;
+    }
+
+    .input-label {
+      display: block;
+      margin-bottom: 8px;
+      font-size: 0.9rem;
+      color: var(--text);
+    }
+
+    .input-field {
+      width: 100%;
+      padding: 14px 16px;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      font-size: 1rem;
+      transition: var(--transition);
+    }
+
+    .input-field:focus {
+      border-color: var(--primary);
+      outline: none;
+      box-shadow: 0 0 0 3px rgba(109, 207, 238, 0.2);
+    }
+
+    .password-wrapper {
+      position: relative;
+    }
+
+    .toggle-password {
+      position: absolute;
+      right: 12px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--text-light);
+      cursor: pointer;
+    }
+
+    .auth-button {
+      width: 100%;
+      padding: 14px;
+      background-color: var(--primary);
+      color: white;
+      border: none;
+      border-radius: var(--radius);
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: var(--transition);
+      margin-top: 8px;
+      text-decoration: none;
+      display: block;
+    }
+
+    .auth-button:hover {
+      background-color: var(--primary-dark);
+    }
+
+    .auth-footer {
+      margin-top: 24px;
+      font-size: 0.9rem;
+      color: var(--text-light);
+    }
+
+    .auth-link {
+      color: var(--primary-dark);
+      text-decoration: none;
+      font-weight: 500;
+    }
+
+    @media (max-width: 400px) {
+      .container {
+        padding: 16px;
+      }
+      
+      .auth-card {
+        padding: 24px 16px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEh3RgfjNtQYU23FjxwzMAf30eWoVw_dL-oB1gv0gousyUUHYgGsAY_H9y5PIAyCRgpwvLytfu-KU2BtBWA8CEnJ3PaTjNY_j8QVFGIkO2cl1ax4gIYmh8MUNPJFCxGpB2d4OZvG5GRCOOhxcWKvALTPevhohLIL8hWkkgwbldcjBF83XzGfTsNIGDMNuA/s1600/1000135247.png" alt="Gaspol Logo" class="logo">
+
+    <div class="auth-card">
+      <h1 class="auth-title">Login Gaspol</h1>
+      
+      <div class="form-group">
+        <label for="loginEmail" class="input-label">Email atau Nomor HP</label>
+        <input type="text" id="loginEmail" class="input-field" placeholder="contoh@email.com">
+      </div>
+      
+      <div class="form-group">
+        <label for="loginPassword" class="input-label">Password</label>
+        <div class="password-wrapper">
+          <input type="password" id="loginPassword" class="input-field" placeholder="Masukkan password">
+          <i class="fas fa-eye toggle-password" id="toggleLoginPassword"></i>
+        </div>
+      </div>
+      
+      <!-- Special login button that redirects to your GitHub Pages -->
+      <a href="https://shariang12.github.io/Gaspol/login.html" class="auth-button">Masuk</a>
+      
+      <div style="text-align: right; margin-top: 12px;">
+        <a href="#" class="auth-link" style="font-size: 0.85rem;">Lupa Password?</a>
+      </div>
+      
+      <div class="auth-footer">
+        <span>Belum punya akun? </span>
+        <a href="#" class="auth-link">Daftar sekarang</a>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Toggle password visibility
+    const eyeIcon = document.getElementById('toggleLoginPassword');
+    const passwordField = document.getElementById('loginPassword');
+    
+    eyeIcon.addEventListener('click', function() {
+      if (passwordField.type === 'password') {
+        passwordField.type = 'text';
+        eyeIcon.classList.remove('fa-eye');
+        eyeIcon.classList.add('fa-eye-slash');
+      } else {
+        passwordField.type = 'password';
+        eyeIcon.classList.remove('fa-eye-slash');
+        eyeIcon.classList.add('fa-eye');
+      }
+    });
+  </script>
+</body>
+</html>
